@@ -3,7 +3,7 @@ import json
 import psaw
 
 
-def download_subreddit_comments(subreddit, start, count, destination):
+def download_subreddit_comments(subreddit, start, count, destination, min_word_count=None):
     api = psaw.PushshiftAPI()
 
     fields = [
@@ -31,6 +31,8 @@ def download_subreddit_comments(subreddit, start, count, destination):
     comments_saved = 0
     while comments_saved < count:
         comment = next(gen)
+        if min_word_count and len(comment.body.split()) < min_word_count:
+            continue
 
         if comments_saved % 50 == 0:
             print("comment {}: {}".format(comments_saved, comment.body))
