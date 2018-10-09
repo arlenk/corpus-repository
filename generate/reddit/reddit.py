@@ -21,7 +21,7 @@ def download_subreddit_comments(subreddit, start, count, destination, min_word_c
     ]
     start_epoch = int(start.timestamp())
 
-    gen = api.search_comments(subreddit=subreddit, filter=fields, after=start)
+    gen = api.search_comments(subreddit=subreddit, filter=fields, after=start_epoch)
 
     output_path = destination / subreddit
     if not output_path.exists():
